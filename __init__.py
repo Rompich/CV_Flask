@@ -50,6 +50,6 @@ def get_post(post_id):
     json_post = {'id': post['id'], 'title': post['title'], 'auteur': post['auteur']}
     
     # Renvoie la réponse JSON
-    return jsonify(post=json_post)
+    return jsonify(choix=json_post)
 if(__name__ == "__main__"):
     app.run()
