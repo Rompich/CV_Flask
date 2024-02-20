@@ -10,7 +10,7 @@ jobs:
           host: "ssh-${{ secrets.USERNAME }}.alwaysdata.net"
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          script: |
+          script:  
             cd $HOME/www/
   Copy:
     needs: Connexion
