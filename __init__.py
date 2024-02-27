@@ -58,7 +58,7 @@ def ajouter_message():
         
         return redirect('/consultation')
         
-     return render_template('messages.html')
+    return render_template('message.html')
 
  
 if(__name__ == "__main__"):
