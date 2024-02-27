@@ -35,7 +35,19 @@ def ReadBDD():
     cursor.execute('SELECT * FROM client;')
     data = cursor.fetchall()
     conn.close()
-    
+    @app.route('/ajouter_message', methods=['POST'])
+def ajouter_message():
+    if request.method == 'POST':
+        email = request.form['email']
+        message = request.form['message']
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO client (email, message) VALUES (?, ?)', (email, message))
+        conn.commit()
+        conn.close()
+        
+        return redirect('/consultation')
     # Rendre le template HTML et transmettre les données
     return render_template('read_data.html', data=data)
 @app.route('/choix/<int:post_id>')
