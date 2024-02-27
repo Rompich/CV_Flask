@@ -42,6 +42,19 @@ def get_post(post_id):
     conn = get_db_connection()
     post = conn.execute('SELECT * FROM livres WHERE id = ?', (post_id,)).fetchone()
     conn.close()
+@app.route('/ajouter_message', methods=['POST'])
+def ajouter_message():
+    if request.method == 'POST':
+        email = request.form['email']
+        message = request.form['message']
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute('INSERT INTO client (email, message) VALUES (?, ?)', (email, message))
+        conn.commit()
+        conn.close()
+        
+        return redirect('/consultation')
 
     # Si la publication avec l'ID spécifié n'est pas trouvée, renvoie une réponse 404 Not Found
     if post is None:
