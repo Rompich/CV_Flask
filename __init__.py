@@ -24,9 +24,11 @@ def resume_2():
 @app.route('/resume_template')
 def resume_template():
     return render_template("resume_template.html")
+    
 @app.route('/messages')
 def message():
     return render_template("message.html")
+    
 # Création d'une nouvelle route pour la lecture de la BDD
 @app.route("/consultation/")
 def ReadBDD():
@@ -37,12 +39,14 @@ def ReadBDD():
     conn.close()
     # Rendre le template HTML et transmettre les données
     return render_template('read_data.html', data=data)
+    
 @app.route('/choix/<int:post_id>')
 def get_post(post_id):
     conn = get_db_connection()
     post = conn.execute('SELECT * FROM livres WHERE id = ?', (post_id,)).fetchone()
     conn.close()
-@app.route('/ajouter_message', methods=['POST'])
+    
+@app.route('/messages', methods=['GET','POST'])
 def ajouter_message():
     if request.method == 'POST':
         email = request.form['email']
@@ -52,9 +56,10 @@ def ajouter_message():
         cursor = conn.cursor()
         cursor.execute('INSERT INTO client (email, message) VALUES (?, ?)', (email, message))
         conn.commit()
-        conn.close()
         
         return redirect('/consultation')
+        
+     return render_template('messages.html')
 
     # Si la publication avec l'ID spécifié n'est pas trouvée, renvoie une réponse 404 Not Found
     if post is None:
