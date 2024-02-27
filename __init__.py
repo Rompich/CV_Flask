@@ -61,14 +61,6 @@ def ajouter_message():
         
      return render_template('messages.html')
 
-    # Si la publication avec l'ID spécifié n'est pas trouvée, renvoie une réponse 404 Not Found
-    if post is None:
-        return jsonify(error='Post not found'), 404
-
-    # Convertit la publication en un format JSON
-    json_post = {'id': post['id'], 'title': post['title'], 'auteur': post['auteur']}
-    
-    # Renvoie la réponse JSON
-    return jsonify(choix=json_post)
+ 
 if(__name__ == "__main__"):
     app.run()
