@@ -3,8 +3,7 @@ import sqlite3
 from urllib.request import urlopen
 
 def get_db_connection():
-    conn = sqlite3.connect('./database.db')
-    conn.row_factory = sqlite3.Row  # Accès aux colonnes par nom.
+    conn = sqlite3.connect('database.db')
     return conn
     
 app = Flask(__name__) #creating flask app name
@@ -43,7 +42,7 @@ def ReadBDD():
 @app.route('/choix/<int:post_id>')
 def get_post(post_id):
     conn = get_db_connection()
-    post = conn.execute('SELECT * FROM livres WHERE id = ?', (post_id,)).fetchone()
+    post = conn.execute('SELECT * FROM client WHERE id = ?', (post_id,)).fetchone()
     conn.close()
     
 @app.route('/messages', methods=['GET','POST'])
