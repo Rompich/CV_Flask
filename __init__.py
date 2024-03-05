@@ -55,10 +55,8 @@ def get_post(post_id):
 @app.route('/messages', methods=['GET','POST'])
 def ajouter_message():
     if request.method == 'POST':
-
-
+        
         submitted_token = request.form['token']
-
         # Vérification du token
         if submitted_token != TOKEN:
             return "Token incorrect. Accès non autorisé."
