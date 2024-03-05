@@ -41,7 +41,7 @@ def message():
 def ReadBDD():
     conn = get_db_connection()  # Utilisation de la fonction définie pour la connexion
     cursor = conn.cursor()
-    cursor.execute('SELECT email, message FROM client;')
+    cursor.execute('SELECT * FROM client;')
     data = cursor.fetchall()
     conn.close()
     # Rendre le template HTML et transmettre les données
@@ -57,17 +57,13 @@ def get_post(post_id):
 def ajouter_message():
     if request.method == 'POST':
         
-        submitted_token = request.form['token']
-        # Vérification du token
-        if submitted_token != TOKEN:
-            return "Token incorrect. Accès non autorisé."
 
         email = request.form['email']
         message = request.form['message']
         
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO client (email, message, token) VALUES (?, ?, ?)', (email, message, token))
+        cursor.execute('INSERT INTO client (email, message, token) VALUES (?, ?)', (email, message))
         conn.commit()
         
         return redirect('/consultation')
