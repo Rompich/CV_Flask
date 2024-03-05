@@ -5,8 +5,15 @@ from urllib.request import urlopen
 def get_db_connection():
     conn = sqlite3.connect('database.db')
     return conn
-    
+   
 app = Flask(__name__) #creating flask app name
+
+load_dotenv()
+
+TOKEN = os.getenv('ALWAYSDATA_TOKEN')
+
+if TOKEN is None:
+    raise ValueError("Le token n'est pas défini dans les variables d'environnement !")
 
 @app.route('/')
 def home():
@@ -48,6 +55,14 @@ def get_post(post_id):
 @app.route('/messages', methods=['GET','POST'])
 def ajouter_message():
     if request.method == 'POST':
+
+
+        submitted_token = request.form['token']
+
+        # Vérification du token
+        if submitted_token != TOKEN:
+            return "Token incorrect. Accès non autorisé."
+
         email = request.form['email']
         message = request.form['message']
         
