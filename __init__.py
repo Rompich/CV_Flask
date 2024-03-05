@@ -41,7 +41,7 @@ def message():
 def ReadBDD():
     conn = get_db_connection()  # Utilisation de la fonction définie pour la connexion
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM client;')
+    cursor.execute('SELECT email, message FROM client;')
     data = cursor.fetchall()
     conn.close()
     # Rendre le template HTML et transmettre les données
@@ -67,7 +67,7 @@ def ajouter_message():
         
         conn = get_db_connection()
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO client (email, message) VALUES (?, ?)', (email, message))
+        cursor.execute('INSERT INTO client (email, message, token) VALUES (?, ?, ?)', (email, message, token))
         conn.commit()
         
         return redirect('/consultation')
