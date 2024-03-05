@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, jsonify, json
 import sqlite3
 from urllib.request import urlopen
-
+from dotenv import load_dotenv
+import os
 def get_db_connection():
     conn = sqlite3.connect('database.db')
     return conn
